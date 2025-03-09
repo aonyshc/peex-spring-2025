@@ -25,13 +25,35 @@
         dest: "/home/ubuntu/random_quote_generator"
         version: master
 
-    - name: Launch the Flask application
-      command: "python3 /home/ubuntu/random_quote_generator/app.py"
-      args:
-        chdir: "/home/ubuntu/random_quote_generator"
-      async: 1000
-      poll: 0
-      register: app_start
+    - name: Create a systemd service file for Flask app
+      copy:
+        dest: /etc/systemd/system/flask_app.service
+        content: |
+          [Unit]
+          Description=Flask Application
+          After=network.target
+
+          [Service]
+          User=ubuntu
+          WorkingDirectory=/home/ubuntu/random_quote_generator
+          ExecStart=/usr/bin/python3 /home/ubuntu/random_quote_generator/app.py
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
+      become: yes
+
+    - name: Reload systemd daemon
+      command: systemctl daemon-reload
+      become: yes
+
+    - name: Enable and start Flask app service
+      systemd:
+        name: flask_app
+        enabled: yes
+        state: started
+      become: yes
+
 
     - name: Display app start status
       debug:
