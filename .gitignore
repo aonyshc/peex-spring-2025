@@ -36,6 +36,8 @@ terraform.rc
 # Ignore any SSH keys
 *.pem
 *.pub
+terrafrom/demo_kp*
+
 
 #Ingnore Mac Stuff
 .DS_Store

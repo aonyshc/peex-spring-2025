@@ -33,9 +33,9 @@ variable "settings" {
     "database" = {
       allocated_storage   = 10            // storage in gigabytes
       engine              = "mysql"       // engine type
-      engine_version      = "8.0.27"      // engine version
-      instance_class      = "db.t2.micro" // rds instance type
-      db_name             = "tutorial"    // database name
+      engine_version      = "8.0.41"      // engine version
+      instance_class      = "db.t3.micro" // rds instance type
+      db_name             = "demo"    // database name
       skip_final_snapshot = true
     },
     "web_app" = {
@@ -47,7 +47,7 @@ variable "settings" {
 
 // This variable contains the CIDR blocks for
 // the public subnet. I have only included 4
-// for this tutorial, but if you need more you 
+// for this demo, but if you need more you 
 // would add them here
 variable "public_subnet_cidr_blocks" {
   description = "Available CIDR blocks for public subnets"
@@ -62,7 +62,7 @@ variable "public_subnet_cidr_blocks" {
 
 // This variable contains the CIDR blocks for
 // the public subnet. I have only included 4 
-// for this tutorial, but if you need more you
+// for this demo, but if you need more you
 // would add them here
 variable "private_subnet_cidr_blocks" {
   description = "Available CIDR blocks for private subnets"
