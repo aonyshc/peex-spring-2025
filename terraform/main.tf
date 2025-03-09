@@ -190,9 +190,9 @@ resource "aws_security_group" "demo_web_sg" {
   vpc_id      = aws_vpc.demo_vpc.id
 
   // The first requirement we need to meet is "EC2 instances should 
-  // be accessible anywhere on the internet via HTTP." So we will 
+  // be accessible anywhere on the internet via 3000 Flask port (instead of standard 80 HTTP port)" So we will 
   // create an inbound rule that allows all traffic through
-  // TCP port 80.
+  // TCP port 3000.
   ingress {
     description = "Allow all traffic through HTTP"
     from_port   = "80"

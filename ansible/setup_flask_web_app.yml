@@ -1,0 +1,39 @@
+---
+- name: Setup Flask App on EC2
+  hosts: ec2_instance
+  become: yes
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Python3 and pip
+      apt:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install Flask
+      pip:
+        name: flask
+
+    - name: Clone the Git repository
+      git:
+        repo: "https://github.com/leeb2828/Random-Quote-Generator_PY.git"
+        dest: "/home/ubuntu/random_quote_generator"
+        version: master
+
+    - name: Launch the Flask application
+      command: "python3 /home/ubuntu/random_quote_generator/app.py"
+      args:
+        chdir: "/home/ubuntu/random_quote_generator"
+      async: 1000
+      poll: 0
+      register: app_start
+
+    - name: Display app start status
+      debug:
+        msg: "Flask app started with job id {{ app_start.ansible_job_id }}"
+
