@@ -21,7 +21,7 @@
 
     - name: Clone the Git repository
       git:
-        repo: "https://github.com/leeb2828/Random-Quote-Generator_PY.git"
+        repo: "https://github.com/aonyshc/rqg-py.git"
         dest: "/home/ubuntu/random_quote_generator"
         version: master
 
@@ -53,9 +53,4 @@
         enabled: yes
         state: started
       become: yes
-
-
-    - name: Display app start status
-      debug:
-        msg: "Flask app started with job id {{ app_start.ansible_job_id }}"
 
